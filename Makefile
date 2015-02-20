@@ -13,5 +13,5 @@ static-lib:
 
 shared-lib:
 	g++ -c -fPIC cassowary-lite.c -o cassowary-lite.o -L . -Wl,-Bstatic -Wl,-whole-archive -lcassowary -Wl,-Bdynamic -Wl,-no-whole-archive
-	g++ -shared -Wl,-soname,libcassowary-lite.so -o libcassowary-lite.so cassowary-lite.o
+	g++ -shared -Wl,-install_name,libcassowary-lite.so -o libcassowary-lite.so cassowary-lite.o -lcassowary -L./
 	rm cassowary-lite.o
