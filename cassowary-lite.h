@@ -134,6 +134,8 @@ extern "C" {
   // - see the failing cases above as well, though.
   void cSimplexSolver_removeEditOrStayConstraint(cSimplexSolver solver, cEditOrStayConstraint est);
 
+  bool cSimplexSolver_addStayVar(cSimplexSolver solver, cVariable var);
+
   void cSimplexSolver_debug_printState(cSimplexSolver solver);
 
   // # And, finally, a mutable-state annex that allows variables to be
@@ -141,7 +143,7 @@ extern "C" {
   bool cSimplexSolver_editVariableInEditConstraint(cSimplexSolver solver, cVariable var, double value);
   // Returns false when a variable being edited isn't within an edit
   // constraint.  
-  void cSimplexSolver_resolve(cSimplexSolver solver);
+  bool cSimplexSolver_resolve(cSimplexSolver solver);
   // No failure case here - if we've edited ourselves into a bind,
   // alter the edit variable.
   

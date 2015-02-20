@@ -111,6 +111,7 @@ cLinearExpression cLinearExpression_newExpWithExp(cLinearExpression leftExp, cOp
       return NULL;
     }
   }
+  return NULL;
 }
 
 cLinearExpression cLinearExpression_newExpWithN(cLinearExpression exp, cOperation op, double n)
@@ -256,6 +257,15 @@ void cSimplexSolver_removeEditOrStayConstraint(cSimplexSolver solver, cEditOrSta
   solver->RemoveConstraint(eqn);
 }
 
+bool cSimplexSolver_addStayVar(cSimplexSolver solver, cVariable var)
+{
+  try {
+    solver->AddStay(*var);
+    return true;
+  } catch(...) {
+    return false;
+  }
+}
 
 // The mutable edit variable annex:
 bool cSimplexSolver_editVariableInEditConstraint(cSimplexSolver solver, cVariable var, double value)
@@ -268,9 +278,14 @@ bool cSimplexSolver_editVariableInEditConstraint(cSimplexSolver solver, cVariabl
   }
 }
 
-void cSimplexSolver_resolve(cSimplexSolver solver)
+bool cSimplexSolver_resolve(cSimplexSolver solver)
 {
-  solver->Resolve();
+  try {
+    solver->Resolve();
+    return true;
+  } catch(...) {
+    return false;
+  }
 }
 
 bool cSimplexSolver_updateVariableInEditConstraint(cSimplexSolver solver, cVariable var, double value)
